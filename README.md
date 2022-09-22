@@ -10,7 +10,8 @@ This is a [Clojure](https://clojure.org/) template configured for ephemeral deve
 
 Click the button below to start a new development environment:
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/gitpod-io/template-clojure)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/ eyewhysee /
+learn-cljs-01-meet-cljs)
 
 ## Get Started With Your Own Project
 
