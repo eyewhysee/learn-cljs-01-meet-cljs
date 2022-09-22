@@ -1,3 +1,7 @@
+# Learn ClojureScript / Section 1: Tools of the Trade / Lesson 5: Bootstrapping a ClojureScript Project / Meeting clj
+
+# Original README below
+
 # A Clojure template on Gitpod
 
 This is a [Clojure](https://clojure.org/) template configured for ephemeral development environments on [Gitpod](https://www.gitpod.io/).
