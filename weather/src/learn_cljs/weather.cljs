@@ -16,7 +16,7 @@
 
 (defn hello-world []
   [:div
-   [:h1 (:text @app-state)]
+   [:h1 "I say: " (:text @app-state)]
    [:h3 "Edit this in src/learn_cljs/weather.cljs and watch it change!"]])
 
 (defn mount [el]
