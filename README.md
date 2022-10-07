@@ -1,4 +1,6 @@
-# Learn ClojureScript / Section 1: Tools of the Trade / Lesson 5: Bootstrapping a ClojureScript Project / Meeting clj
+# Learn ClojureScript / Section 1: Tools of the Trade
+## Lesson 5: Bootstrapping a ClojureScript Project
+## Lesson 6: Receiving Rapid Feedback With Figwheel
 
 # Original README below
 
