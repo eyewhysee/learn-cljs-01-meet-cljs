@@ -2,4 +2,7 @@
   :paths ["src"]
  :aliases {:dev {:main-opts ["-m" "cljs.main"
                              "--compile" "my-cljs-project.core"
-                             "--repl"]}}}
+                             "--repl"]}
+           :new {:extra-deps {seancorfield/clj-new {:mvn/version "1.2.399"}}
+                 :exec-fn clj-new/create
+                 :exec-args {}}}}
