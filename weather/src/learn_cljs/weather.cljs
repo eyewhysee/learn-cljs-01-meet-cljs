@@ -19,8 +19,13 @@
    [:h1 "I say: " (:text @app-state)]
    [:h3 "Edit this in src/learn_cljs/weather.cljs and watch it change!"]])
 
+; new component
+(defn greeter []
+  [:div
+   [:h3 "Hello, from Learning ClojureScript Lesson 6"]])
+
 (defn mount [el]
-  (rdom/render [hello-world] el))
+  (rdom/render [greeter] el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]
@@ -36,4 +41,4 @@
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+  )
