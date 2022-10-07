@@ -15,7 +15,7 @@
   (gdom/getElement "app"))
 
 (defn hello-world []
-  [:div
+  [:p
    [:h1 "I say: " (:text @app-state)]
    [:h3 "Edit this in src/learn_cljs/weather.cljs and watch it change!"]])
 
