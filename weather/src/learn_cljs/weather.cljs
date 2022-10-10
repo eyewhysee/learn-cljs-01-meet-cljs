@@ -43,6 +43,19 @@
     (js/alert "Welcome!")
     true))
 
+; Display/Business Logic Separation
+; his admittedly inefficient example
+;(defonce messages (atom []))
+;(defn receive-message [text timestamp]
+;  (swap! messages conj {:text text :timestamp timestamp}))
+;(defn render-all-messages! [messages]
+;  (set! (.-innerHTML messages-feed) "")
+;  (doseq [message @messages]
+;    (let [node (.createElement js/document "div")]
+;      (set! (.-innerHTML node) (str "[" timestamp "]: " text))
+;      (.appendChild messages-feed node))))
+; (render-all-messages!)
+
 ;; conditionally start your application based on the presence of an "app" element
 ;; this is particularly helpful for testing this ns without launching the app
 (mount-app-element)
