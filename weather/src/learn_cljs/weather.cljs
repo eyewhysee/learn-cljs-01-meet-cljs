@@ -31,6 +31,18 @@
   (when-let [el (get-app-element)]
     (mount el)))
 
+; idempotent function example
+(defn append-element [parent child]
+  (when-not(.contains parent child)
+   (.appendChild parent child)))
+
+; defonce example with first use of do expression for wrapping initialization code
+(defonce is-initialized?
+  (do
+    (.setItem js/localStorage "init-at" (.now js/Date))
+    (js/alert "Welcome!")
+    true))
+
 ;; conditionally start your application based on the presence of an "app" element
 ;; this is particularly helpful for testing this ns without launching the app
 (mount-app-element)
