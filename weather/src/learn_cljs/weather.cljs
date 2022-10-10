@@ -56,6 +56,18 @@
 ;      (.appendChild messages-feed node))))
 ; (render-all-messages!)
 
+; REPL Crash Course
+(def input (.createElement js/document "input"))
+(.appendChild (.-body js/document) input)
+(set! (.-placeholder input) "Enter something")
+
+(defn event-value [e] (-> e .-target .-value))
+(defn update-text [value]
+  (swap! app-state assoc :text value))
+(defn handle-input [e]
+  (update-text (event-value e)))
+(set! (.-onkeyup input) handle-input)
+
 ;; conditionally start your application based on the presence of an "app" element
 ;; this is particularly helpful for testing this ns without launching the app
 (mount-app-element)
