@@ -14,7 +14,7 @@
                                                       :value nil}}}))
 
 ; OpenWeatherMap API key
-(def api-key "8a66b78d83a4f459cf921d22ebc012cc")
+(def api-key "8e1f178d1a73dba5c93566df96e87ace")
 
 ; update app-state with forecast data
 (defn handle-response [resp]
