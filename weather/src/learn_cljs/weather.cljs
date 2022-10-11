@@ -6,7 +6,7 @@
 
 (defn hello-world []
   [:div
-   [:h1 {:class "app-title"} "Hello, World"]])
+   [:h1 {:class "app-title" :id "hello-world-id"} "Hello, World!"]])
 
 (defn mount-app-element []
   (rdom/render [hello-world] (gdom/getElement "app")))
