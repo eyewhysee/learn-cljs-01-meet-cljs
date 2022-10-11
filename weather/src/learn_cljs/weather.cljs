@@ -42,6 +42,9 @@
     (:value temp)]
    [:h2 (:label temp)]])
 
+(defn go-button []
+  [:button {:on-change get-forecast!} "Get forecast!"])
+
 (defn postal-code []
   [:div {:class "postal-code"}
    [:h3 "Enter your postal code"]
@@ -49,7 +52,7 @@
             :placeholder "Postal Code"
             :value (:postal-code @app-state)
             :on-change #(swap! app-state assoc :postal-code (-> % .-target .-value))}]
-   [:button {:on-click get-forecast!} "Go"]])
+   [go-button]])
 
 (defn app []
   [:div {:class "app"}
