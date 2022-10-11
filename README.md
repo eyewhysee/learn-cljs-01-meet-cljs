@@ -1,6 +1,8 @@
 # Learn ClojureScript / Section 1: Tools of the Trade
 ## Lesson 5: Bootstrapping a ClojureScript Project
 ## Lesson 6: Receiving Rapid Feedback With Figwheel
+## Lesson 7: REPL Crash Course
+## Lesson 8: Capstone 1 - Weather Forecasting App
 
 # Original README below
 
