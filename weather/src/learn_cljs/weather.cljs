@@ -3,7 +3,9 @@
    [goog.dom :as gdom]
    [reagent.dom :as rdom]
    [reagent.core :as r]
-   [ajax.core :as ajax]))
+   [ajax.core :as ajax])
+    (:require-macros
+     [adzerk.env :as env]))
 
 ; application state
 (defonce app-state (r/atom {:title "WhichWeather"
@@ -13,8 +15,13 @@
                                            :tomorrow {:label "Tomorrow"
                                                       :value nil}}}))
 
+; use environment variables instead of directly including secrets (securuity risk)
+; https://gitpod.io/variables (search gitpod docs for "Environment Variables")
+; https://stackoverflow.com/a/67865832
+(env/def OPENWEATHERMAP_API_KEY "no default key available")
+
 ; OpenWeatherMap API key
-(def api-key "8e1f178d1a73dba5c93566df96e87ace")
+(def api-key OPENWEATHERMAP_API_KEY)
 
 ; update app-state with forecast data
 (defn handle-response [resp]
@@ -27,10 +34,10 @@
 (defn get-forecast! []
   (let [postal-code (:postal-code @app-state)]
     (ajax/GET "https://api.openweathermap.org/data/2.5/forecast"
-              {:params {"q" postal-code
-                        "units" "imperial"
-                        "appid" api-key}
-               :handler handle-response})))
+      {:params {"q" postal-code
+                "units" "imperial"
+                "appid" api-key}
+       :handler handle-response})))
 
 ; Reagent components
 (defn title []
@@ -43,7 +50,7 @@
    [:h2 (:label temp)]])
 
 (defn go-button []
-  [:button {:on-change get-forecast!} "Get forecast!"])
+  [:button {:on-click get-forecast!} "Get forecast!"])
 
 (defn postal-code []
   [:div {:class "postal-code"}
