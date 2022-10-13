@@ -4,6 +4,9 @@
 ## Lesson 7: REPL Crash Course
 ## Lesson 8: Capstone 1 - Weather Forecasting App
 
+# Learn ClojureScript / Section 2: Basic ClojureScript
+## Lesson 14: Performing I/O
+
 # Original README below
 
 # A Clojure template on Gitpod
