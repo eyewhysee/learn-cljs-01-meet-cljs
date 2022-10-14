@@ -6,6 +6,7 @@
 
 # Learn ClojureScript / Section 2: Basic ClojureScript
 ## Lesson 14: Performing I/O
+## Lesson 15: Capstone 2 - Temperature Converter
 
 # Original README below
 
