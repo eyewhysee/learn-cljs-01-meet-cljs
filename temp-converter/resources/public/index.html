@@ -17,14 +17,34 @@
 
   <div class="user-input">
     <div class="unit-control">                             <!-- 1 -->
-      <p>Convert from</p>
+      <p>Convert FROM</p>
       <div class="radio-option">
-        <input type="radio" id="unit-c" name="unit" value="c" checked="checked" />
-        <label for="unit-c">Celsius</label>
+        <input type="radio" id="from-unit-c" name="from-unit" value="c" checked="checked" />
+        <label for="from-unit-c">Celsius</label>
       </div>
       <div class="radio-option">
-        <input type="radio" id="unit-f" name="unit" value="f" />
-        <label for="unit-f">Fahrenheit</label>
+        <input type="radio" id="from-unit-f" name="from-unit" value="f" />
+        <label for="from-unit-f">Fahrenheit</label>
+      </div>
+      <div class="radio-option">
+	<input type="radio" id="from-unit-k" name="from-unit" value="k" />
+        <label for="from-unit-k">Kelvin</label>
+      </div>
+    </div>
+	
+    <div class="unit-control">
+      <p>Convert TO</p>
+      <div class="radio-option">
+        <input type="radio" id="to-unit-c" name="to-unit" value="c" />
+        <label for="to-unit-c">Celsius</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" id="to-unit-f" name="to-unit" value="f" checked="checked" />
+        <label for="to-unit-f">Fahrenheit</label>
+      </div>
+      <div class="radio-option">
+	<input type="radio" id="to-unit-k" name="to-unit" value="k" />
+        <label for="to-unit-k">Kelvin</label>
       </div>
     </div>
 
