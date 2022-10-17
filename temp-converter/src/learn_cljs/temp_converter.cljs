@@ -1,5 +1,6 @@
 (ns learn-cljs.temp-converter
   (:require [goog.dom :as gdom]                            ;; <1>
+            [goog.dom.forms :as forms]
             [goog.events :as gevents]))
 
 (defn f->c [deg-f]                                         ;; <2>
@@ -13,6 +14,7 @@
 (def temp-input (gdom/getElement "temp"))
 (def output-target (gdom/getElement "temp-out"))
 (def output-unit-target (gdom/getElement "unit-out"))
+(def reset-button (gdom/getElement "reset-temp"))
 
 (defn get-input-unit []                                     ;; <4>
   (if (.-checked celsius-radio)
@@ -33,6 +35,12 @@
     (do (set-output-temp (f->c (get-input-temp)))
         (gdom/setTextContent output-unit-target "C"))))
 
+(defn reset-temp []
+  (do
+    (forms/setValue temp-input 0)
+    (update-output nil)))
+
 (gevents/listen temp-input "keyup" update-output)          ;; <6>
 (gevents/listen celsius-radio "click" update-output)
 (gevents/listen fahrenheit-radio "click" update-output)
+(gevents/listen reset-button "click" reset-temp)
