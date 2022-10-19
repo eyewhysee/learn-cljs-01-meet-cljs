@@ -105,11 +105,16 @@
   (forms/setValue temp-input 0)
   (update-output 0))
 
-(gevents/listen temp-input "keyup" update-output)          ;; <6>
-(gevents/listen from-celsius-radio "click" update-output)
-(gevents/listen from-fahrenheit-radio "click" update-output)
-(gevents/listen from-kelvin-radio "click" update-output)
-(gevents/listen to-celsius-radio "click" update-output)
-(gevents/listen to-fahrenheit-radio "click" update-output)
-(gevents/listen to-kelvin-radio "click" update-output)
-(gevents/listen reset-button "click" reset-temp)
+;; see Lesson 6: wrapping initialization code (use of defonce)
+(defonce is-initialized?
+  (do
+    (gevents/listen temp-input "keyup" update-output)          ;; <6>
+    (gevents/listen from-celsius-radio "click" update-output)
+    (gevents/listen from-fahrenheit-radio "click" update-output)
+    (gevents/listen from-kelvin-radio "click" update-output)
+    (gevents/listen to-celsius-radio "click" update-output)
+    (gevents/listen to-fahrenheit-radio "click" update-output)
+    (gevents/listen to-kelvin-radio "click" update-output)
+    (gevents/listen reset-button "click" reset-temp)
+    true))
+(is-initialized?)
