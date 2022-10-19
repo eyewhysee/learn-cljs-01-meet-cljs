@@ -13,7 +13,7 @@
   (/ (- deg-f 32) 1.8))
 
 (defn f->k [deg-f]
-  ((c->k (f->c deg-f))))
+  (c->k (f->c deg-f)))
 
 (defn c->f [deg-c]
   (+ (* deg-c 1.8) 32))
