@@ -102,9 +102,8 @@
       
 
 (defn reset-temp []
-  (do
-    (forms/setValue temp-input 0)
-    (update-output nil)))
+  (forms/setValue temp-input 0)
+  (update-output 0))
 
 (gevents/listen temp-input "keyup" update-output)          ;; <6>
 (gevents/listen from-celsius-radio "click" update-output)
