@@ -4,5 +4,5 @@
    }
 ; If you do not set :connect-url: Figwheel WebSocket will try to connect to ws://localhost:9500. It will fail.
 ; https://figwheel.org/docs/https.html
-^{:connect-url "wss://9500-eyewhysee-learncljs01me-qa8mubt5iss.ws-us71.gitpod.io/figwheel-connect"}
+^{:connect-url "wss://9500-eyewhysee-learncljs01me-eakgj8bruo4.ws-us71.gitpod.io/figwheel-connect"}
 {:main learn-cljs.temp-converter}
