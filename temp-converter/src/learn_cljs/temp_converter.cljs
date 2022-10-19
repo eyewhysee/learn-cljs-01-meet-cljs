@@ -21,18 +21,37 @@
 (defn k->f [deg-k]
   (c->f (k->c deg-k)))
 
-(def celsius-radio (gdom/getElement "unit-c"))              ;; <3>
-(def fahrenheit-radio (gdom/getElement "unit-f"))
-(def kelvin-radio (gdom/getElement "unit-k"))
+(defn f->f [deg-f]
+  deg-f)
+
+(defn c->c [deg-c]
+  deg-c)
+
+(defn k->k [deg-k]
+  deg-k)
+
+(def from-celsius-radio (gdom/getElement "from-unit-c"))            ;; <3>
+(def from-fahrenheit-radio (gdom/getElement "from-unit-f"))
+(def from-kelvin-radio (gdom/getElement "from-unit-k"))
+(def to-celsius-radio (gdom/getElement "to-unit-c"))            ;; <3>
+(def to-fahrenheit-radio (gdom/getElement "to-unit-f"))
+(def to-kelvin-radio (gdom/getElement "to-unit-k"))
 (def temp-input (gdom/getElement "temp"))
 (def output-target (gdom/getElement "temp-out"))
 (def output-unit-target (gdom/getElement "unit-out"))
 (def reset-button (gdom/getElement "reset-temp"))
 
-(defn get-input-unit []                                     ;; <4>
-  (if (.-checked celsius-radio)
+(defn get-from-unit []                                     ;; <4>
+  (if (.-checked from-celsius-radio)
     :celsius
-    (if (.-checked fahrenheit-radio)
+    (if (.-checked from-fahrenheit-radio)
+      :fahrenheit
+      :kelvin)))
+
+(defn get-to-unit []                                     ;; <4>
+  (if (.-checked to-celsius-radio)
+    :celsius
+    (if (.-checked to-fahrenheit-radio)
       :fahrenheit
       :kelvin)))
 
@@ -43,39 +62,44 @@
   (gdom/setTextContent output-target
                        (.toFixed temp 2)))
 
-(defn update-output-OLD [_]                                    ;; <5>
-  (if (= :celsius (get-input-unit))
-    (do (set-output-temp (c->f (get-input-temp)))
-        (gdom/setTextContent output-unit-target "F"))
-    (do (set-output-temp (f->c (get-input-temp)))
-        (gdom/setTextContent output-unit-target "C"))))
-
-(defn update-output [_]
-  (let [previous-unit (gdom/getTextConent output-unit-target)]
+(defn update-output [_](                                       ;; <5>
     (cond
-      (and (= :celsius (get-input-unit)) (= "F" previous-unit))
+      (and (= :fahrenheit (get-from-unit)) (= :celsius (get-to-unit)))
       (do (set-output-temp (f->c (get-input-temp)))
           (gdom/setTextContent output-unit-target "C"))
       
-      (and (= :celsius (get-input-unit)) (= "K" previous-unit))
+      (and (= :celsius (get-from-unit)) (= :celsius (get-to-unit)))
+      (do (set-output-temp (c->c (get-input-temp)))
+          (gdom/setTextContent output-unit-target "C"))
+      
+      (and (= :kelvin (get-from-unit)) (= :celsius (get-to-unit)))
       (do (set-output-temp (k->c (get-input-temp)))
           (gdom/setTextContent output-unit-target "C"))
       
-      (and (= :fahrenheit (get-input-unit)) (= "C" previous-unit))
+      (and (= :fahrenheit (get-from-unit)) (= :fahrenheit (get-to-unit)))
+      (do (set-output-temp (f->f (get-input-temp)))
+          (gdom/setTextContent output-unit-target "F"))
+      
+      (and (= :celsius (get-from-unit)) (= :fahrenheit (get-to-unit)))
       (do (set-output-temp (c->f (get-input-temp)))
           (gdom/setTextContent output-unit-target "F"))
       
-      (and (= :fahrenheit (get-input-unit)) (= "K" previous-unit))
+      (and (= :kelvin (get-from-unit)) (= :fahrenheit (get-to-unit)))
       (do (set-output-temp (k->f (get-input-temp)))
           (gdom/setTextContent output-unit-target "F"))
       
-      (and (= :kelvin (get-input-unit)) (= "C" previous-unit))
+      (and (= :fahrenheit (get-from-unit)) (= :kelvin (get-to-unit)))
+      (do (set-output-temp (f->k (get-input-temp)))
+          (gdom/setTextContent output-unit-target "K"))
+      
+      (and (= :celsius (get-from-unit)) (= :kelvin (get-to-unit)))
       (do (set-output-temp (c->k (get-input-temp)))
           (gdom/setTextContent output-unit-target "K"))
       
-      (and (= :kelvin (get-input-unit)) (= "F" previous-unit))
-      (do (set-output-temp (f->k (get-input-temp)))
+      (and (= :kelvin (get-from-unit)) (= :kelvin (get-to-unit)))
+      (do (set-output-temp (k->k (get-input-temp)))
           (gdom/setTextContent output-unit-target "K")))))
+      
 
 (defn reset-temp []
   (do
@@ -83,7 +107,10 @@
     (update-output nil)))
 
 (gevents/listen temp-input "keyup" update-output)          ;; <6>
-(gevents/listen celsius-radio "click" update-output)
-(gevents/listen fahrenheit-radio "click" update-output)
-(gevents/listen kelvin-radio "click" update-output)
+(gevents/listen from-celsius-radio "click" update-output)
+(gevents/listen from-fahrenheit-radio "click" update-output)
+(gevents/listen from-kelvin-radio "click" update-output)
+(gevents/listen to-celsius-radio "click" update-output)
+(gevents/listen to-fahrenheit-radio "click" update-output)
+(gevents/listen to-kelvin-radio "click" update-output)
 (gevents/listen reset-button "click" reset-temp)
