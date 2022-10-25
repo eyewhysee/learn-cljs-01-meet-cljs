@@ -8,6 +8,9 @@
 ## Lesson 14: Performing I/O
 ## Lesson 15: Capstone 2 - Temperature Converter
 
+# Learn ClojureScript / Section 2: Working with Data
+## Lesson 20: Capstone 3 - Contact Book
+
 # Original README below
 
 # A Clojure template on Gitpod
