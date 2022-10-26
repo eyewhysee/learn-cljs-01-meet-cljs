@@ -19,7 +19,7 @@
 
 (defn make-contact [contact]
   (-> contact
-      (select-keys [:first-name :last-name :email :address])
+      (select-keys [:first-name :last-name :email :phone :address])
       (maybe-set-address)))
 
 (defn add-contact [contact-list input]
@@ -119,6 +119,7 @@
      (form-field "input-first-name" (:first-name contact) "First Name")
      (form-field "input-last-name" (:last-name contact) "Last Name")
      (form-field "input-email" (:email contact) "Email" "email")
+     (form-field "input-phone" (:phone contact) "Phone number" "phone number")
      [:fieldset
       [:legend "Address"]
       (form-field "input-street" (:street address) "Street")
@@ -135,6 +136,7 @@
   {:first-name (get-field-value "input-first-name")
    :last-name (get-field-value "input-last-name")
    :email (get-field-value "input-email")
+   :phone (get-field-value "input-phone")
    :address {:street (get-field-value "input-street")
              :city (get-field-value "input-city")
              :state (get-field-value "input-state")
