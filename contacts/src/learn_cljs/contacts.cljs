@@ -151,7 +151,6 @@
       (dissoc :selected)))
 
 (defn on-add-contact [state]
-  (println state)
   (swap! state on-add-contact-handler))
 
 (defn on-save-contact-handler [state]
@@ -188,7 +187,6 @@
   (swap! state on-delete-contact-handler e))
 
 (defn attach-event-handlers! [state]
-  (println state)
   (when-let [add-button (gdom/getElement "add-contact")]
     (gevents/listen add-button "click"
                     (fn [_] (on-add-contact state))))
@@ -233,10 +231,14 @@
 (defonce is-initialized?
   (do
     (add-watch app-state :state-observer
-               (fn [_ _ _ new-val]
+               (fn [_ atom _ new-val]
+                 ; we want want to render new-val (the dereferenced value of the atom)
                  (render-app! new-val)
-                 (attach-event-handlers! new-val)))
+                 ; however, the event handlers need the atom itself so we can call swap!
+                 (attach-event-handlers! atom)))
+    ; we want to render the dereferenced value of the atom
     (render-app! @app-state)
-    (attach-event-handlers! @app-state)
+    ; however, the event handlers need the atom itself so we can call swap!
+    (attach-event-handlers! app-state)
     
     true))
