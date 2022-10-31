@@ -36,7 +36,6 @@
 ;; UI
 
 (def app-container (gdom/getElement "app"))
-(declare refresh!)
 
 (def top-bar
   [:div {:class "navbar has-shadow"}
@@ -146,38 +145,50 @@
 (defn set-app-html! [html-str]
   (set! (.-innerHTML app-container) html-str))
 
+(defn on-add-contact-handler [state]
+  (-> state
+      (assoc :editing? true)
+      (dissoc :selected)))
+
 (defn on-add-contact [state]
-  (refresh! (-> state
-                (assoc :editing? true)
-                (dissoc :selected))))
+  (println state)
+  (swap! state on-add-contact-handler))
+
+(defn on-save-contact-handler [state]
+  (let [contact (get-contact-form-data)
+        idx (:selected state)
+        state (dissoc state :selected :editing?)]
+    (if idx
+      (update state :contacts replace-contact idx contact)
+      (update state :contacts add-contact contact))))
 
 (defn on-save-contact [state]
-  (refresh!
-   (let [contact (get-contact-form-data)
-         idx (:selected state)
-         state (dissoc state :selected :editing?)]
-     (if idx
-       (update state :contacts replace-contact idx contact)
-       (update state :contacts add-contact contact)))))
+  (swap! state on-save-contact-handler))
 
 (defn on-cancel-edit [state]
-  (refresh! (dissoc state :selected :editing?)))
+  (swap! state dissoc :selected :editing?))
+
+(defn on-open-contact-handler [state e]
+  (let [idx (int (.. e -currentTarget -dataset -idx))]
+    (assoc state :selected idx
+           :editing? true)))
 
 (defn on-open-contact [e state]
-  (refresh!
-   (let [idx (int (.. e -currentTarget -dataset -idx))]
-     (assoc state :selected idx
-            :editing? true))))
+  (swap! state on-open-contact-handler e))
+
+(defn on-delete-contact-handler [state e]
+  (let [idx (int (.. e -currentTarget -dataset -idx))]
+    (-> state
+        (update :contacts remove-contact idx)
+        (cond-> (= idx (:selected state))
+          (dissoc :selected :editing?)))))
 
 (defn on-delete-contact [e state]
   (.stopPropagation e)
-  (let [idx (int (.. e -currentTarget -dataset -idx))]
-    (refresh! (-> state
-                  (update :contacts remove-contact idx)
-                  (cond-> (= idx (:selected state))
-                    (dissoc :selected :editing?))))))
+  (swap! state on-delete-contact-handler e))
 
 (defn attach-event-handlers! [state]
+  (println state)
   (when-let [add-button (gdom/getElement "add-contact")]
     (gevents/listen add-button "click"
                     (fn [_] (on-add-contact state))))
@@ -212,13 +223,20 @@
           (render-contact-details (get-in state [:contacts (:selected state)] {}))
           no-contact-details)]]]])))
 
-(defn refresh! [state]
-  (render-app! state)
-  (attach-event-handlers! state))
-
 (def initial-state
   {:contacts contact-list
    :selected nil
    :editing? false})
 
-(refresh! initial-state)
+(defonce app-state (atom initial-state))
+
+(defonce is-initialized?
+  (do
+    (add-watch app-state :state-observer
+               (fn [_ _ _ new-val]
+                 (render-app! new-val)
+                 (attach-event-handlers! new-val)))
+    (render-app! @app-state)
+    (attach-event-handlers! @app-state)
+    
+    true))
