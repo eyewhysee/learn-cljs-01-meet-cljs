@@ -11,6 +11,9 @@
 # Learn ClojureScript / Section 3: Working with Data
 ## Lesson 20: Capstone 3 - Contact Book
 
+# Learn ClojureScript / Section 4: Idiomatic ClojureScript
+## Lesson 23: Namespaces and Program Structure
+
 # Original README below
 
 # A Clojure template on Gitpod
