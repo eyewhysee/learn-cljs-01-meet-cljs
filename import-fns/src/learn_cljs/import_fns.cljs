@@ -1,22 +1,19 @@
-(ns ^:figwheel-hooks learn-cljs.import-fns
-  (:require
-   [goog.dom :as gdom]))
+(ns learn-cljs.import-fns
+  (:require learn-cljs.import-fns.ui
+            [learn-cljs.import-fns.format :refer [pluralize]]
+            [learn-cljs.import-fns.inventory :as inventory]
+            [goog.dom
+             :refer [getElement]
+             :rename {getElement get-element}]))
 
-(println "This text is printed from src/learn_cljs/import_fns.cljs. Go ahead and edit it and see reloading in action.")
+(defn item-description [i item]
+  (let [qty (inventory/item-qty i item)
+        label (if (> qty 1) (pluralize item) item)]
+    (str qty " " label)))
 
-(defn multiply [a b] (* a b))
-
-;; define your app data so that it doesn't get over-written on reload
-(defonce app-state (atom {:text "Hello world!"}))
-
-(defn get-app-element []
-  (gdom/getElement "app"))
-
-
-
-;; specify reload hook with ^:after-load metadata
-(defn ^:after-load on-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+(let [i (-> (inventory/make-inventory)
+            (inventory/add-items "Laser Catapult" 1)
+            (inventory/add-items "Antimatter Scrubber" 5))]
+  (learn-cljs.import-fns.ui/render-list (get-element "app")
+                                        (map (partial item-description i)
+                                             (inventory/list-items i))))
