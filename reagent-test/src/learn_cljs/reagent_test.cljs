@@ -1,22 +1,26 @@
-(ns ^:figwheel-hooks learn-cljs.reagent-test
-  (:require
-   [goog.dom :as gdom]))
+(ns learn-cljs.reagent-test
+  (:require [reagent.core :as r]
+            [reagent.ratom :as ratom]
+            [goog.dom :as gdom]
+            [goog.events :as gevents]))
 
-(println "This text is printed from src/learn_cljs/reagent_test.cljs. Go ahead and edit it and see reloading in action.")
+(def a-cell (r/atom 0))
+(def b-cell (r/atom 0))
+(def c-cell
+  (ratom/make-reaction
+   #(+ @a-cell @b-cell)))
 
-(defn multiply [a b] (* a b))
+(def a (gdom/getElement "cell-a"))
+(def b (gdom/getElement "cell-b"))
+(def c (gdom/getElement "cell-c"))
 
-;; define your app data so that it doesn't get over-written on reload
-(defonce app-state (atom {:text "Hello world!"}))
+(defn update-cell [cell]
+  (fn [e]
+    (let [num (js/parseInt (.. e -target -value))]
+      (reset! cell num))))
 
-(defn get-app-element []
-  (gdom/getElement "app"))
+(gevents/listen a "change" (update-cell a-cell))
+(gevents/listen b "change" (update-cell b-cell))
 
-
-
-;; specify reload hook with ^:after-load metadata
-(defn ^:after-load on-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+(ratom/run!
+ (set! (.-value c) @c-cell))
