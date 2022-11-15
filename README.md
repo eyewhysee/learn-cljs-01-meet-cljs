@@ -14,6 +14,9 @@
 # Learn ClojureScript / Section 4: Idiomatic ClojureScript
 ## Lesson 23: Namespaces and Program Structure
 
+# Learn ClojureScript / Section 5: ClojureScript Applications
+## Lesson 28: Using React via Reagent
+
 # Original README below
 
 # A Clojure template on Gitpod
