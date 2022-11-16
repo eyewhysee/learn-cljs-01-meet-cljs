@@ -2,4 +2,7 @@
   :css-dirs ["resources/public/css"]
   :auto-testing true
    }
+; If you do not set :connect-url: Figwheel WebSocket will try to connect to ws://localhost:9500. It will fail.
+; https://figwheel.org/docs/https.html
+^{:connect-url "wss://9500-eyewhysee-learncljs01me-trhe481nk62.ws-us74.gitpod.io/figwheel-connect"}
 {:main learn-cljs.exercise-tracker}
