@@ -17,8 +17,9 @@
    :minutes "0"})
 
 (defonce state
-  (r/atom {:inputs (initial-inputs)
-           :entries {}}))
+  (local-storage (r/atom {:inputs (initial-inputs)
+                          :entries {}})
+                 :exercise_tracker_entries))
 
 (def chart-width 400)
 (def chart-height 200)
