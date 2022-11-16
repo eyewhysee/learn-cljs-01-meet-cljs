@@ -2,7 +2,8 @@
   (:require [reagent.core :as r]
             [reagent.dom :as rdom]
             [reagent.ratom :as ratom]
-            [goog.dom :as gdom]))
+            [goog.dom :as gdom]
+            [alandipert.storage-atom :refer [local-storage]]))
 
 (defn- date-string [d]
   (let [pad-zero #(.padStart (.toString %) 2 "0")
